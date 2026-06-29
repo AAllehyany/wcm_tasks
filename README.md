@@ -81,18 +81,27 @@ Services with no selected value would show no badge.
 To keep the badge markup and styling maintainable across both the Service Guide card and the Service Details page, I would also create a small reusable component. 
 
 Component name: CMP_ServiceStatusBadge 
-[IfDefined context="current" type="content" key="serviceStatus"]
-    <span class="status-badge" data-status="[Element context="current" type="content" key="serviceStatus"]">
-        [Element context="current" type="content" key="serviceStatus"]
+[IfDefined context="autofill" type="content" key="serviceStatus"]
+    <span class="status-badge" data-status="[Element context="autofill" type="content" key="serviceStatus"]">
+        [Element context="autofill" type="content" key="serviceStatus"]
     </span>
+
 [/IfDefined]
+
+We can enhance the visuals using css like so, if needed:
+
+.status-badge { display: inline-block; padding: 2px 8px; border-radius: 2px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
+.status-badge[data-status="New"]     { background: #e6f4ea; color: #1e6e34; }
+.status-badge[data-status="Updated"] { background: #e8f0fe; color: #1a56b8; }
+
 <!-- 2. MENU_ServiceGuide card result design: -->
+
 <div class="card">
     [IfDefined context="current" type="content" key="serviceIcon"]
         <img src="[Element context="current" type="content" key="serviceIcon"]" alt="" loading="lazy" />
     [/IfDefined]
     <h3>[Element context="current" type="content" key="serviceTitle"]</h3>
-    [Component name="CMP_ServiceStatusBadge" context="current"]
+    [Component name="CMP_ServiceStatusBadge"]
     <p>[Element context="current" type="content" key="serviceSummary"]</p>
     <a href="[URLCmpnt context="current" type="content"]"> Read more </a>
 </div>
@@ -103,7 +112,7 @@ this is to my understanding is the result card in the menu loop/rendering templa
 <article class="service-detail">
   <h1>
   [Element context="current" type="content" key="serviceTitle"]
-  [Component name="CMP_ServiceStatusBadge" context="current"]
+  [Component name="CMP_ServiceStatusBadge"]
   </h1>
 
   <div class="summary">[Element context="current" type="content" key="serviceSummary"]</div>
@@ -173,7 +182,7 @@ CMP_ServiceCard:
         <img src="[Element context="current" type="content" key="serviceIcon"]" alt="" loading="lazy" />
     [/IfDefined]
     <h3>[Element context="current" type="content" key="serviceTitle"]</h3>
-    [Component name="CMP_ServiceStatusBadge" context="current"]
+    [Component name="CMP_ServiceStatusBadge" ]
     <p>[Element context="current" type="content" key="serviceSummary"]</p>
     <a href="[URLCmpnt context="current" type="content"]">Read more</a>
 </div>
@@ -186,7 +195,7 @@ The MENUS are here:
     <h2>Featured services</h2>
     <div class="card-grid">
     <!-- Result Design -->
-    [Component name="CMP_ServiceCard" context="current"]
+    [Component name="CMP_ServiceCard"]
     <!-- Footer -->
     </div>
 </section>
@@ -200,7 +209,7 @@ The MENUS are here:
     <h2>{CATEGORY}</h2>
     <div class="card-grid">
     <!-- Result Design -->
-    [Component name="CMP_ServiceCard" context="current"]
+    [Component name="CMP_ServiceCard" ]
     <!-- Footer -->
     </div>
 </section>
@@ -333,7 +342,7 @@ _Corrected markup:_
   <h3>
     [Element context="current" type="content" key="serviceTitle"]
   </h3>
-  [Component name="CMP_ServiceStatusBadge" context="current"]
+  [Component name="CMP_ServiceStatusBadge"]
   <p>
     [Element context="current" type="content" key="serviceSummary"]
   </p>
